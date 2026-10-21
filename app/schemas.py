@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, field_validator, ConfigDict
+from datetime import date as Date
 
 class UserCreate(BaseModel):
     name: str  
@@ -21,13 +22,13 @@ class Token(BaseModel):
     token_type: str
 
 
-from datetime import date
+
 
 class ExpenseCreate(BaseModel):
     title: str
     amount: float
     category: str
-    date: date
+    date: Date
     payment_method: str
     description: str | None = None
 
@@ -37,14 +38,15 @@ class ExpenseResponse(BaseModel):
     title: str
     amount: float
     category: str
-    date: date
+    date: Date
     payment_method: str
     description: str | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 class ExpenseUpdate(BaseModel):
     title: str | None = None
     amount: float | None = None
     category: str | None = None
-    date: date | None = None
+    date: Date | None = None
     payment_method: str | None = None
     description: str | None = None
